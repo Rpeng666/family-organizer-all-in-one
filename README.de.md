@@ -127,7 +127,7 @@ Family Organizer ist eine **Open-Source-Web- und Mobile-App zur Familienverwaltu
 ### 1. Klonen und installieren
 
 ```bash
-git clone https://github.com/your-username/family-organizer.git
+git clone https://github.com/Rpeng666/family-organizer.git
 cd family-organizer
 npm install
 ```

@@ -139,7 +139,7 @@ Family Organizer is an open-source **family management web + mobile app** design
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/your-username/family-organizer.git
+git clone https://github.com/Rpeng666/family-organizer.git
 cd family-organizer
 npm install
 ```

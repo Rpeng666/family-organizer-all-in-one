@@ -140,7 +140,7 @@ Family Organizer 是一个为多人共用设备设计的**开源家庭管理 Web
 ### 1. 克隆 & 安装依赖
 
 ```bash
-git clone https://github.com/your-username/family-organizer.git
+git clone https://github.com/Rpeng666/family-organizer.git
 cd family-organizer
 npm install
 ```

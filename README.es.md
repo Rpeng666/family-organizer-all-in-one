@@ -127,7 +127,7 @@ Family Organizer es una **aplicación web + móvil de gestión familiar de códi
 ### 1. Clonar e instalar
 
 ```bash
-git clone https://github.com/your-username/family-organizer.git
+git clone https://github.com/Rpeng666/family-organizer.git
 cd family-organizer
 npm install
 ```
