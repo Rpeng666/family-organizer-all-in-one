@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "instantdb": {
+      "source": "instantdb/skills",
+      "sourceType": "github",
+      "computedHash": "a8ca1c3483dda0db69e7aa59821576aaf7ec2cc95533b181b7855ab56327cad0"
+    }
+  }
+}

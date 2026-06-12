@@ -1,0 +1,147 @@
+services:
+  # --- 1. Family Organizer App ---
+  family-organizer:
+    container_name: family-organizer
+    image: family-organizer:latest
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # These bake the PUBLIC URLs into the JavaScript bundle at build time.
+      # Changing these requires running `docker compose up -d --build`.
+      args:
+        NEXT_PUBLIC_S3_ENDPOINT: ${NEXT_PUBLIC_S3_ENDPOINT:-}
+        NEXT_PUBLIC_INSTANT_API_URI: ${NEXT_PUBLIC_INSTANT_API_URI:-}
+        NEXT_PUBLIC_INSTANT_WEBSOCKET_URI: ${NEXT_PUBLIC_INSTANT_WEBSOCKET_URI:-}
+        NEXT_PUBLIC_INSTANT_APP_ID: ${NEXT_PUBLIC_INSTANT_APP_ID:-}
+    # No ports needed when using a reverse proxy (e.g. SWAG) on the same Docker network —
+    # it can reach this container directly as http://family-organizer:3000.
+    # To expose the app directly on the host instead, uncomment:
+    # ports:
+    #   - '7654:3000'
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    environment:
+      # --- Server-Side Config (Internal Docker Network) ---
+      # The server uses the internal container name "minio".
+      # This keeps traffic inside the docker network and avoids SSL overhead internally.
+      - S3_ENDPOINT=http://minio:9000
+      - S3_BUCKET_NAME=family-organizer
+      - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
+      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - DEVICE_ACCESS_KEY=${DEVICE_ACCESS_KEY}
+      # Node environment settings
+      - NODE_ENV=production
+      - HOSTNAME=0.0.0.0
+    depends_on:
+      - minio
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health', { cache: 'no-store' }).then((response) => { if (!response.ok) process.exit(1); }).catch(() => process.exit(1))",
+        ]
+      start_period: 10s
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - default
+
+  # --- 1a. Apple Calendar Sync Worker ---
+  family-organizer-calendar-sync-worker:
+    container_name: family-organizer-calendar-sync-worker
+    image: family-organizer:latest
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_S3_ENDPOINT: ${NEXT_PUBLIC_S3_ENDPOINT:-}
+        NEXT_PUBLIC_INSTANT_API_URI: ${NEXT_PUBLIC_INSTANT_API_URI:-}
+        NEXT_PUBLIC_INSTANT_WEBSOCKET_URI: ${NEXT_PUBLIC_INSTANT_WEBSOCKET_URI:-}
+        NEXT_PUBLIC_INSTANT_APP_ID: ${NEXT_PUBLIC_INSTANT_APP_ID:-}
+    command: ["node", "scripts/apple-calendar-sync-worker.js"]
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    environment:
+      - NODE_ENV=production
+      - APPLE_CALDAV_POLL_TARGET_URL=http://family-organizer:3000
+    depends_on:
+      family-organizer:
+        condition: service_healthy
+    networks:
+      - default
+
+  # --- 2. MinIO (S3 Compatible Storage) ---
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    ports:
+      - '${MINIO_PORT}:9000'        # API Port
+      - '${MINIO_CONSOLE_PORT}:9001' # Console Port
+    environment:
+      - MINIO_ROOT_USER=${S3_ACCESS_KEY_ID}
+      - MINIO_ROOT_PASSWORD=${S3_SECRET_ACCESS_KEY}
+      # CRITICAL: Tells MinIO its public identity so Presigned URLs use the domain, not the container IP
+      - MINIO_SERVER_URL=${NEXT_PUBLIC_S3_ENDPOINT}
+      # Uncomment if you reverse-proxy the MinIO console (e.g. via SWAG/nginx):
+      # - MINIO_BROWSER_REDIRECT_URL=${MINIO_BROWSER_REDIRECT_URL}
+    volumes:
+      - minio_data:/data
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 20s
+      retries: 3
+
+  # --- 3. Create Buckets (One-off initialization) ---
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    entrypoint: |
+      /bin/sh -c "
+      # Connect to MinIO
+      until /usr/bin/mc alias set myminio http://minio:9000 \${S3_ACCESS_KEY_ID} \${S3_SECRET_ACCESS_KEY}; do
+        echo '...waiting for minio...';
+        sleep 1;
+      done;
+
+      # Create bucket and set public download policy
+      /usr/bin/mc mb -p myminio/family-organizer;
+      /usr/bin/mc anonymous set download myminio/family-organizer;
+
+      echo 'Bucket setup complete.'
+      exit 0;
+      "
+    networks:
+      - default
+
+volumes:
+  minio_data:
+
+# Join an existing external network (e.g. for reverse proxying via SWAG/nginx).
+# Set DOCKER_NETWORK_NAME in your .env to match the network your reverse proxy uses.
+networks:
+  default:
+    name: ${DOCKER_NETWORK_NAME:-docker_default}
+    external: true

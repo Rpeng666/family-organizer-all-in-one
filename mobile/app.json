@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Family Organizer",
+    "slug": "family-organizer-mobile",
+    "icon": "./assets/icon-ios-1024x1024.png",
+    "scheme": "familyorganizer",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.familyorganizer.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-audio",
+      "expo-video",
+      "expo-image",
+      "expo-status-bar"
+    ],
+    "newArchEnabled": true,
+    "experiments": {
+      "typedRoutes": false
+    },
+    "android": {
+      "package": "com.familyorganizer.app"
+    }
+  }
+}

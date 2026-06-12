@@ -1,0 +1,2153 @@
+.calendarScrollContainer {
+    position: relative;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    background-color: #fff;
+    padding: 0 0 12px;
+}
+
+.dayViewScrollContainer {
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+.dayViewShell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    background:
+        radial-gradient(circle at top left, rgba(191, 219, 254, 0.18), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+}
+
+.dayViewRowSection {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.dayViewRowSection:last-child {
+    border-bottom: none;
+}
+
+.dayViewTopRow {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.dayViewTimeHeaderSpacer {
+    flex: 0 0 auto;
+    padding: 12px 10px 10px;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(241, 245, 249, 0.94));
+}
+
+.dayViewTimeHeaderLabel {
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: pre-line;
+    color: rgba(15, 23, 42, 0.62);
+}
+
+.dayViewHorizontalViewport {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.dayViewHorizontalViewport::-webkit-scrollbar {
+    display: none;
+}
+
+.dayViewTrack {
+    position: relative;
+    min-height: 100%;
+}
+
+.dayViewHeaderRow {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.dayViewHeaderCell {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 10px 12px 9px;
+    border-left: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.92));
+}
+
+.dayViewHeaderWeekday {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+.dayViewHeaderGregorian {
+    margin-top: 4px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #0f172a;
+}
+
+.dayViewHeaderBs {
+    margin-top: 5px;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    color: rgba(15, 23, 42, 0.6);
+}
+
+.dayViewAllDayTrack {
+    position: relative;
+    display: flex;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(248, 250, 252, 0.86);
+}
+
+.dayViewAllDayCellWrap {
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 0;
+    border-left: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.dayViewAllDayCell {
+    position: relative;
+    height: 100%;
+}
+
+.dayViewAllDayOverflow {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 2px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.56);
+}
+
+.dayViewAllDayOverlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.dayViewAllDayLane {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.dayViewAllDaySegment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 0 2px;
+    pointer-events: auto;
+}
+
+.dayViewAllDayEventCard .dayEventCardTitle {
+    font-size: calc(0.96rem * var(--calendar-item-scale, 1));
+    line-height: 1.08;
+}
+
+.dayViewAllDayEventCard .dayEventCardBody {
+    padding-top: calc(4px * var(--calendar-item-scale, 1));
+    padding-bottom: calc(4px * var(--calendar-item-scale, 1));
+    overflow: visible;
+}
+
+.dayViewAllDayEventCard .dayEventPinnedContent[data-calendar-pinned-content='true'] {
+    position: sticky;
+    left: calc(6px * var(--calendar-item-scale, 1));
+    z-index: 3;
+    flex: 0 1 auto;
+    max-width: 100%;
+    padding-right: calc(8px * var(--calendar-item-scale, 1));
+}
+
+.dayViewTimedEventCard .dayEventCardTopRow[data-calendar-pinned-vertical='true'] {
+    position: sticky;
+    top: calc(7px * var(--calendar-item-scale, 1));
+    z-index: 3;
+}
+
+.dayViewAllDayEventCard .dayEventMemberRail {
+    top: calc(5px * var(--calendar-item-scale, 1));
+    bottom: calc(5px * var(--calendar-item-scale, 1));
+}
+
+.dayViewAllDayEventCard {
+    overflow: visible;
+}
+
+.dayViewBodyRow {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.dayViewTimeGutter {
+    position: relative;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+}
+
+.dayViewTimeGutterInner {
+    position: relative;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+.dayViewTimeLabel {
+    position: absolute;
+    left: 0;
+    right: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: right;
+    color: rgba(15, 23, 42, 0.58);
+    transform: translateY(-50%);
+}
+
+.dayViewVerticalScroller {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dayViewTimedGrid {
+    position: relative;
+}
+
+.dayViewHourLines,
+.dayViewSubhourLines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.dayViewHourLines {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.12) 0,
+        rgba(15, 23, 42, 0.12) 1px,
+        transparent 1px,
+        transparent 100%
+    );
+}
+
+.dayViewSubhourLines {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.05) 0,
+        rgba(15, 23, 42, 0.05) 1px,
+        transparent 1px,
+        transparent 100%
+    );
+}
+
+.dayViewColumnsRow {
+    position: absolute;
+    inset: 0;
+    display: flex;
+}
+
+.dayViewTimedColumn {
+    position: relative;
+    flex: 0 0 auto;
+    height: 100%;
+    border-left: 1px solid rgba(15, 23, 42, 0.08);
+    scroll-snap-align: start;
+}
+
+.dayViewCurrentTimeLine {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.82), rgba(248, 113, 113, 0.66));
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+    z-index: 5;
+    pointer-events: none;
+}
+
+.dayViewTimedEventWrapper {
+    position: absolute;
+    min-width: 0;
+    padding: 0 3px 3px;
+    z-index: 6;
+}
+
+.dayViewTimedEventCard {
+    height: 100%;
+    min-height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dayViewResizeHandle {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: -3px;
+    height: 10px;
+    z-index: 8;
+    cursor: ns-resize;
+    border: 0;
+    background: transparent;
+}
+
+.dayViewResizeHandleBottom {
+    top: auto;
+    bottom: -3px;
+}
+
+.dayViewDraftBlock {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    border-radius: 12px;
+    border: 1px dashed rgba(14, 116, 144, 0.55);
+    background: linear-gradient(180deg, rgba(165, 243, 252, 0.34), rgba(125, 211, 252, 0.24));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+    pointer-events: none;
+    z-index: 7;
+}
+
+.dayViewTimedPreview,
+.dayViewAllDayPreviewSegment {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9;
+    border: 1px dashed rgba(14, 116, 144, 0.48);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(165, 243, 252, 0.36), rgba(125, 211, 252, 0.26));
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.44),
+        0 10px 28px -24px rgba(14, 116, 144, 0.52);
+    overflow: hidden;
+}
+
+.dayViewTimedPreview {
+    padding: 6px 8px;
+}
+
+.dayViewAllDayPreviewSegment {
+    top: 2px;
+    bottom: 2px;
+    padding: 3px 8px;
+}
+
+.dayViewDropPreviewTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #0f172a;
+}
+
+.dayViewDropPreviewTime {
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.66rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: rgba(15, 23, 42, 0.72);
+}
+
+.dragRecurrenceIndicator {
+    position: fixed;
+    z-index: 120;
+    pointer-events: none;
+    transform: translate(18px, 18px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 9999px;
+    border: 1px solid rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.22);
+    color: #f8fafc;
+    padding: 7px 11px;
+    backdrop-filter: blur(10px);
+}
+
+.dragRecurrenceIndicatorLabel {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.dragRecurrenceIndicatorKey {
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #e2e8f0;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 7px 3px;
+    text-transform: uppercase;
+}
+
+.calendarTable {
+    width: 100%;
+    border-collapse: collapse; /* Ensures there are no gaps between borders */
+    margin: 0 auto;
+    /* font-family: 'EB Garamond'; */
+    table-layout: fixed; /* Columns of equal width */
+}
+
+.headerCell {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background-color: #fff;
+    font-weight: normal;
+    font-size: xx-large;
+    padding-right: 0.5%; /* Remove default padding */
+    border-top: none; /* Remove top border */
+    border-left: none; /* Remove left border */
+    border-right: 0.5px solid black; /* Remove right border */
+    border-bottom: 0.5px solid #000; /* 0.5px bottom border */
+    text-align: right; /* Right-justify the text */
+}
+
+.stickyMonthBox {
+    position: sticky;
+    left: 0;
+    z-index: 45;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.stickyMonthFrame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    border: 0.5px solid #333;
+    background-color: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transition:
+        width 140ms ease,
+        height 140ms ease;
+}
+
+.stickyMonthText {
+    position: absolute;
+    inset: 0;
+    padding: 4px 8px 6px;
+    font-size: 1.05rem;
+    line-height: 1.25;
+}
+
+.stickyMonthMeasure {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    font-size: 1.05rem;
+    line-height: 1.25;
+}
+
+.stickyMonthLabel {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 1px;
+    width: 100%;
+}
+
+.stickyMonthLine {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.stickyMonthMonthLine {
+    gap: 10px;
+}
+
+.stickyMonthNepali {
+    margin-left: auto;
+    text-align: right;
+}
+
+.stickyMonthYearLine {
+    font-size: 0.92em;
+    opacity: 0.9;
+    justify-content: space-between;
+}
+
+.stickyMonthYearNepali {
+    margin-left: auto;
+    text-align: right;
+}
+
+.stickyMonthDivider {
+    opacity: 0.65;
+}
+
+.monthFadeIn {
+    animation: monthFadeIn 260ms ease both;
+}
+
+.monthFadeOut {
+    animation: monthFadeOut 260ms ease both;
+}
+
+.monthStatic {
+    opacity: 1;
+}
+
+@keyframes monthFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes monthFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.miniCalendarShell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top left, rgba(191, 219, 254, 0.42), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.miniCalendarShellInner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.miniStickyHeader {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 12px 8px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.9));
+}
+
+.miniStickyHeaderTrack {
+    position: relative;
+    flex: 1;
+    min-height: 38px;
+    overflow: hidden;
+}
+
+.miniStickyHeaderTrackRight {
+    text-align: right;
+}
+
+.miniStickyHeaderLabel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
+.miniStickyHeaderLabelPrevious {
+    pointer-events: none;
+}
+
+.miniStickyHeaderTitle {
+    font-size: 0.98rem;
+    line-height: 1.02;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+}
+
+.miniStickyHeaderSubtitle {
+    font-size: 0.68rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: rgba(15, 23, 42, 0.55);
+}
+
+.miniStickyLabelInUp {
+    animation: miniStickyLabelInUp 260ms ease both;
+}
+
+.miniStickyLabelOutUp {
+    animation: miniStickyLabelOutUp 260ms ease both;
+}
+
+.miniStickyLabelInDown {
+    animation: miniStickyLabelInDown 260ms ease both;
+}
+
+.miniStickyLabelOutDown {
+    animation: miniStickyLabelOutDown 260ms ease both;
+}
+
+@keyframes miniStickyLabelInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes miniStickyLabelOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes miniStickyLabelInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes miniStickyLabelOutDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+.miniWeekdayHeader {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0;
+    padding: 0 10px 6px;
+    background: linear-gradient(180deg, rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0.82));
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.miniWeekdayCell {
+    padding-top: 5px;
+    font-size: 0.58rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: rgba(15, 23, 42, 0.54);
+}
+
+.miniCalendarScrollContainer {
+    flex: 1;
+    min-height: 0;
+    padding: 0 10px 10px;
+    background: transparent;
+}
+
+.miniCalendarTable {
+    width: 100%;
+}
+
+.miniDayCell {
+    position: relative;
+    height: var(--calendar-day-cell-height, 36px);
+    min-height: var(--calendar-day-cell-height, 36px);
+    padding: 1px 1px 2px;
+    border: 0.35px solid rgba(15, 23, 42, 0.14);
+    background: rgba(255, 255, 255, 0.94);
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.miniDayNumberWrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 3px;
+    min-height: 10px;
+    padding-right: 1px;
+}
+
+.miniDayPrimary {
+    font-size: 0.62rem;
+    line-height: 1;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.miniDaySecondary {
+    font-size: 0.48rem;
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.6);
+}
+
+.miniDayEventStack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--calendar-year-event-gap, 1px);
+    min-width: 0;
+    overflow: hidden;
+}
+
+.miniDayMore {
+    margin-top: var(--calendar-year-event-gap, 1px);
+    font-size: calc(0.44rem * var(--calendar-year-event-font-scale, 1));
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.56);
+}
+
+.sentinelRow td {
+    border: none;
+    height: 1px;
+    padding: 0;
+}
+
+.dayCell {
+    padding: 1px; /* Only 1px padding inside day cells */
+    border: 0.5px solid #000; /* 0.5px border for all sides */
+    text-align: right; /* Right-justify the text */
+    /* background-color: #fff; White background */
+    position: relative; /* Positioning context for month name */
+    height: var(--calendar-day-cell-height, 120px);
+    vertical-align: top; /* Align text to the top */
+    overflow: visible;
+}
+.dragOverCell {
+    background-color: #e0f2fe; /* light-blue-100 */
+    opacity: 0.8;
+    transition: background-color 150ms ease-out;
+}
+
+.firstDayOfMonth {
+    background: linear-gradient(to right, rgb(209, 223, 252), white); /* Apply gradient */
+    border-top: 1px solid blue;
+    border-left: 1px solid blue;
+    border-style: double;
+}
+
+.firstDayOfMonth + td,
+.firstDayOfMonth + td + td,
+.firstDayOfMonth + td + td + td,
+.firstDayOfMonth + td + td + td + td,
+.firstDayOfMonth + td + td + td + td + td,
+.firstDayOfMonth + td + td + td + td + td + td {
+    border-top: 1px solid blue;
+    border-style: double;
+}
+
+.firstWeekOfMonth {
+    border-style: double;
+    border-top: 1px solid blue;
+}
+
+/* .firstDayOfMonth::before, .firstDayOfMonth::after {
+    content: "";
+    position: absolute;
+    background-color: blue;
+}
+
+.firstDayOfMonth::before {
+    top: -1px;
+    left: 0;
+    right: 0;
+    width: 2px;
+}
+
+.firstDayOfMonth::after {
+    top: 0px;
+    left: -1;
+    width: 1px;
+    height: 100%;
+} */
+
+.firstDayOfYear {
+    background: linear-gradient(to right, rgb(49, 138, 255), white) 0% 0% / 80% 23% no-repeat,
+        /* Blue to white gradient strip along the top edge */ linear-gradient(to right, rgb(209, 223, 252), white); /* regular new month gradient */
+}
+
+.firstDayOfNepaliMonth {
+    background: linear-gradient(to right, rgb(252, 209, 209), white); /* Apply gradient */
+    border-top: 1px solid rgb(255, 150, 150);
+    border-left: 1px solid rgb(255, 150, 150);
+    border-style: double;
+}
+
+.firstWeekOfNepaliMonth {
+    border-style: double;
+    border-top: 1px solid rgb(255, 150, 150);
+}
+
+.firstDayOfNepaliYear {
+    background: linear-gradient(to right, red, white) 0% 0% / 80% 23% no-repeat,
+        /* Red to white gradient strip along the top edge */ linear-gradient(to right, rgb(252, 209, 209), white); /* regular Nepali new month gradient */
+}
+
+.dayNumber {
+    position: sticky;
+    top: var(--calendar-day-number-top, 0px);
+    z-index: 12;
+    display: block;
+    font-size: 16px;
+    color: #333;
+    padding-right: 1.5%;
+    right: 5px; /* Right-justified within the cell */
+}
+
+.weekSpanOverlay {
+    position: absolute;
+    left: -1px;
+    width: calc(700% + 6px);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 14;
+    pointer-events: none;
+}
+
+.weekSpanOverlayLane {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    align-items: start;
+}
+
+.weekSpanOverlaySegment {
+    min-width: 0;
+    padding: 0 1px;
+    pointer-events: auto;
+}
+
+.multiDayLaneSpacer {
+    width: 100%;
+}
+
+.dayEventStack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dayEventStackWithTopGap {
+    margin-top: 2px;
+}
+
+.event {
+    --calendar-chip-border: #a7f3d0;
+    --calendar-chip-bg: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    --calendar-chip-title: #14532d;
+    --calendar-chip-meta: rgba(20, 83, 45, 0.86);
+    --calendar-chip-audience-border: #86efac;
+    --calendar-chip-audience-text: #166534;
+    --calendar-chip-avatar-border: #34d399;
+    --calendar-chip-avatar-bg: rgba(255, 255, 255, 0.82);
+    --calendar-chip-avatar-text: #065f46;
+    --calendar-chip-count-bg: rgba(6, 95, 70, 0.1);
+    --calendar-chip-count-text: #065f46;
+    --calendar-span-border: #6ee7b7;
+    --calendar-span-bg: linear-gradient(135deg, #ecfdf5, #bbf7d0 55%, #86efac);
+    font-size: 0.67rem;
+    line-height: 1.02;
+}
+
+.chore {
+    --calendar-chip-border: #bfdbfe;
+    --calendar-chip-bg: linear-gradient(135deg, #eff6ff, #dbeafe 60%, #bfdbfe);
+    --calendar-chip-title: #1d4ed8;
+    --calendar-chip-meta: rgba(30, 64, 175, 0.88);
+    --calendar-chip-audience-border: #93c5fd;
+    --calendar-chip-audience-text: #1d4ed8;
+    --calendar-chip-avatar-border: #60a5fa;
+    --calendar-chip-avatar-bg: rgba(255, 255, 255, 0.86);
+    --calendar-chip-avatar-text: #1e3a8a;
+    --calendar-chip-count-bg: rgba(37, 99, 235, 0.12);
+    --calendar-chip-count-text: #1e3a8a;
+    --calendar-span-border: #93c5fd;
+    --calendar-span-bg: linear-gradient(135deg, #eff6ff, #dbeafe 60%, #bfdbfe);
+    font-size: 0.67rem;
+    line-height: 1.02;
+}
+
+.circled {
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: var(--calendar-chip-border, #a7f3d0);
+    background: var(--calendar-chip-bg, linear-gradient(135deg, #d1fae5, #a7f3d0));
+    width: auto;
+    height: auto;
+    padding: 1px 5px 2px;
+    border-style: solid;
+}
+
+.calendarItem {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.calendarItemPlain {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.calendarItemInteractive {
+    cursor: pointer;
+}
+
+.calendarItemStatic {
+    cursor: default;
+}
+
+.calendarItemYear {
+    gap: 0;
+    min-width: 0;
+    width: fit-content;
+    max-width: 100%;
+    align-self: flex-start;
+    min-height: var(--calendar-year-single-event-height, 14px);
+    height: var(--calendar-year-single-event-height, 14px);
+    padding: 0 var(--calendar-year-event-inline-padding, 4px);
+    border-width: var(--calendar-year-event-border-width, 1px);
+    border-radius: var(--calendar-year-event-radius, 6px);
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.calendarItemYear.calendarItemPlain {
+    border-width: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.calendarItemScaled {
+    --calendar-year-event-font-scale: var(--calendar-item-scale, 1);
+}
+
+.calendarItemSelected {
+    --calendar-selection-color: #f97316;
+    border-color: var(--calendar-selection-color);
+    box-shadow:
+        0 0 0 1px rgba(249, 115, 22, 0.16),
+        0 0 0 2px rgba(249, 115, 22, 0.7);
+}
+
+.calendarItemPlainSelected {
+    border: 1px solid var(--calendar-selection-color, #f97316);
+    border-radius: 6px;
+    padding: 0 4px;
+    box-shadow: none;
+}
+
+.calendarItemSearchMatch {
+    box-shadow:
+        0 0 0 1px rgba(14, 165, 233, 0.18),
+        0 0 0 2px rgba(14, 165, 233, 0.38),
+        0 10px 24px -18px rgba(14, 165, 233, 0.42);
+}
+
+.calendarItemSearchDim {
+    opacity: 0.42;
+    filter: saturate(0.55);
+}
+
+.dayEventCard {
+    position: relative;
+    gap: 0;
+    min-height: 100%;
+    border: 1px solid var(--calendar-day-event-outline, rgba(29, 78, 216, 0.48));
+    border-radius: 8px;
+    background: var(--calendar-day-event-bg, linear-gradient(180deg, rgba(29, 78, 216, 0.42), rgba(29, 78, 216, 0.26)));
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 12px 24px -18px var(--calendar-day-event-shadow, rgba(29, 78, 216, 0.18));
+    overflow: hidden;
+    padding: 0;
+}
+
+.dayEventCard.dayViewAllDayEventCard {
+    overflow: visible;
+}
+
+.dayEventCard.dayViewTimedEventCard {
+    overflow: visible;
+}
+
+.dayEventMemberRail {
+    position: absolute;
+    left: calc(6px * var(--calendar-item-scale, 1));
+    top: calc(8px * var(--calendar-item-scale, 1));
+    bottom: calc(8px * var(--calendar-item-scale, 1));
+    width: max(3px, calc(4px * var(--calendar-item-scale, 1)));
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.dayEventMemberRailSegment {
+    flex: 1;
+    min-height: 0;
+}
+
+.dayEventCardBody {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 100%;
+    padding: calc(7px * var(--calendar-item-scale, 1)) calc(8px * var(--calendar-item-scale, 1))
+        calc(7px * var(--calendar-item-scale, 1)) calc(16px * var(--calendar-item-scale, 1));
+}
+
+.dayEventCardTopRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+}
+
+.dayEventPinnedContent {
+    display: flex;
+    align-items: stretch;
+    gap: calc(6px * var(--calendar-item-scale, 1));
+    margin-left: calc(-10px * var(--calendar-item-scale, 1));
+    min-width: 0;
+    flex: 1;
+}
+
+.dayEventPinnedContent .dayEventMemberRail {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    flex: 0 0 auto;
+    align-self: stretch;
+}
+
+.dayEventCardTitleBlock {
+    min-width: 0;
+    flex: 1;
+}
+
+.dayEventCardTitle {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-align: left;
+    color: var(--calendar-day-event-text, #F8FAFC);
+    font-size: calc(0.96rem * var(--calendar-item-scale, 1));
+    font-weight: 700;
+    line-height: 1.08;
+    text-overflow: ellipsis;
+}
+
+.dayEventCardMeta {
+    margin-top: 3px;
+    text-align: left;
+    color: var(--calendar-day-event-muted, rgba(248, 250, 252, 0.82));
+    font-size: calc(0.74rem * var(--calendar-item-scale, 1));
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.dayEventAvatarStack {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    margin-left: auto;
+    gap: 4px;
+    max-width: 42%;
+}
+
+.dayEventAvatarStack[data-avatar-layout='column'] {
+    flex-direction: column;
+    max-width: none;
+}
+
+.dayEventAvatarStack[data-avatar-layout='row'] {
+    flex-direction: row;
+}
+
+.dayEventAvatar {
+    width: var(--calendar-day-avatar-size, max(10px, calc(18px * var(--calendar-item-scale, 1))));
+    height: var(--calendar-day-avatar-size, max(10px, calc(18px * var(--calendar-item-scale, 1))));
+    border: 1px solid var(--calendar-day-avatar-border, rgba(255, 255, 255, 0.7));
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.2);
+}
+
+.dayEventAvatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dayEventAvatarFallback {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--calendar-day-avatar-border, #1D4ED8);
+    font-size: max(0.3rem, calc(0.46rem * var(--calendar-item-scale, 1)));
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.calendarItemCarryover {
+    opacity: 0.56;
+    filter: saturate(0.82);
+}
+
+.eventTitle {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-align: left;
+    color: var(--calendar-chip-title, #14532d);
+    font-size: calc(0.72rem * var(--calendar-item-scale, 1));
+    font-weight: 600;
+    line-height: 1.08;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.eventHeaderRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.eventHeaderRowSpan {
+    gap: 4px;
+}
+
+.eventHeaderRowYear {
+    gap: 4px;
+}
+
+.eventAudienceRow {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.eventAudienceRowDots {
+    gap: 2px;
+}
+
+.eventMetaText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    color: var(--calendar-chip-meta, rgba(20, 83, 45, 0.86));
+    font-size: calc(0.56rem * var(--calendar-item-scale, 1));
+    line-height: 1;
+    padding-left: 1px;
+}
+
+.eventAudienceAll {
+    border-radius: 9999px;
+    border: 1px solid var(--calendar-chip-audience-border, #86efac);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--calendar-chip-audience-text, #166534);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 0 4px;
+}
+
+.eventAudienceAvatar {
+    min-width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--calendar-member-indicator-color, var(--calendar-chip-avatar-border, #34d399));
+    background: var(--calendar-member-indicator-contrast-surface, #fff);
+    color: var(--calendar-member-indicator-color, var(--calendar-chip-avatar-text, #065f46));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.38rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0 3px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+}
+
+.eventAudienceCount {
+    border-radius: 9999px;
+    background: var(--calendar-chip-count-bg, rgba(6, 95, 70, 0.1));
+    color: var(--calendar-chip-count-text, #065f46);
+    font-size: 0.45rem;
+    font-weight: 700;
+    padding: 0 4px;
+}
+
+.eventMemberDot {
+    width: calc(6px * var(--calendar-year-event-font-scale, 1));
+    height: calc(6px * var(--calendar-year-event-font-scale, 1));
+    border-radius: 9999px;
+    background: var(--calendar-member-indicator-color, var(--calendar-chip-avatar-border, #34d399));
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.56),
+        0 0 0 1px rgba(15, 23, 42, 0.14);
+    flex-shrink: 0;
+}
+
+.eventPlain {
+    --calendar-chip-title: #0f172a;
+    --calendar-chip-meta: rgba(51, 65, 85, 0.9);
+}
+
+.chorePlain {
+    --calendar-chip-title: #1d4ed8;
+    --calendar-chip-meta: rgba(29, 78, 216, 0.82);
+}
+
+.eventSpan {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    min-height: 100%;
+    height: 100%;
+    margin-top: 0;
+    padding: calc(1px * var(--calendar-item-scale, 1)) calc(6px * var(--calendar-item-scale, 1))
+        calc(2px * var(--calendar-item-scale, 1));
+    border-color: var(--calendar-span-border, #6ee7b7);
+    background: var(--calendar-span-bg, linear-gradient(135deg, #ecfdf5, #bbf7d0 55%, #86efac));
+    border-radius: 999px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+.eventSpan.calendarItemSelected {
+    border-color: var(--calendar-selection-color, #f97316);
+    box-shadow:
+        0 0 0 1px rgba(249, 115, 22, 0.16),
+        0 0 0 2px rgba(249, 115, 22, 0.7);
+}
+
+.yearCalendarGrid .eventSpan {
+    gap: 0;
+    min-height: var(--calendar-year-span-event-height, 16px);
+    height: var(--calendar-year-span-event-height, 16px);
+    padding: 0 var(--calendar-year-event-inline-padding, 4px);
+    border-width: var(--calendar-year-event-border-width, 1px);
+    border-color: var(--calendar-chip-border, #a7f3d0);
+    background: var(--calendar-chip-bg, linear-gradient(135deg, #d1fae5, #a7f3d0));
+    border-radius: var(--calendar-year-event-radius, 6px);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.yearCalendarGrid .eventSpan.calendarItemSelected {
+    border-color: var(--calendar-selection-color, #f97316);
+    box-shadow:
+        0 0 0 1px rgba(249, 115, 22, 0.16),
+        0 0 0 2px rgba(249, 115, 22, 0.7);
+}
+
+.yearCalendarGrid .eventHeaderRowSpan {
+    gap: 3px;
+}
+
+.yearCalendarGrid .eventSpanContinuesBefore,
+.yearCalendarGrid .eventSpanContinuesAfter {
+    border-radius: var(--calendar-year-event-radius, 6px);
+}
+
+.eventSpanContinuesBefore {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.eventSpanContinuesAfter {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.eventTitleSpan {
+    -webkit-line-clamp: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+    font-size: calc(0.72rem * var(--calendar-year-event-font-scale, 1));
+}
+
+.yearCalendarGrid .eventTitleSpan {
+    font-size: calc(0.62rem * var(--calendar-year-event-font-scale, 1));
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.eventTitleYear {
+    font-size: calc(0.62rem * var(--calendar-year-event-font-scale, 1));
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.eventAudienceRowSpan {
+    flex-shrink: 0;
+}
+
+.highlighted {
+    background-color: #ffff00;
+}
+
+.important {
+    font-weight: bold;
+}
+
+.monthName {
+    position: absolute;
+    font-size: larger;
+    padding: 8px 0px 4px 0px;
+    /* margin-left: -5%; */
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    bottom: 0;
+}
+
+.nepaliMonthName {
+    position: absolute;
+    left: 0;
+    top: 30px;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 8px 0px 4px 0px;
+    overflow: visible;
+    white-space: normal;
+    /* margin-left: -5%; */
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.firstDayOfNepaliYear .nepaliMonthName {
+    top: 34px;
+}
+
+.yearNumber {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: larger;
+    font-weight: normal;
+    color: #000;
+    z-index: 20; /* Ensure year number is above other content */
+}
+
+.nepaliYearNumber {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: larger;
+    font-weight: normal;
+    color: #000;
+    z-index: 20; /* Ensure year number is above other content */
+}
+
+.displayBothMonths {
+    position: absolute;
+    top: -20px; /* Adjust based on the desired overlap */
+    left: 10px; /* Adjust position within the cell */
+    background-color: #ffffff; /* Same as table background color */
+    border: 0.5px solid #333; /* Border around the inset box */
+    padding: 1px 3px 2px 3px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow for better visibility */
+    z-index: 1; /* Ensure the box overlays the table border */
+}
+
+.react-beautiful-dnd-drag-handle {
+    cursor: move;
+}
+
+.react-beautiful-dnd-dragging {
+    opacity: 0.8;
+}
+
+.yearCalendarStage {
+    position: relative;
+}
+
+.yearCalendarGrid {
+    position: relative;
+}
+
+.yearCalendarRows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--calendar-year-row-gap, 12px);
+}
+
+.yearMonthRow {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.yearMonthRowViewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.yearMonthRowTrack {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--calendar-year-row-gap, 12px);
+    width: max-content;
+    min-width: 100%;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+.yearMonthRowTrackWithEdges {
+    transform: translate3d(calc(-1 * var(--calendar-year-step)), 0, 0);
+}
+
+.yearMonthRowTrackShiftRight {
+    transform: translate3d(0, 0, 0);
+}
+
+.yearMonthRowTrackShiftLeft {
+    transform: translate3d(calc(-2 * var(--calendar-year-step)), 0, 0);
+}
+
+.yearMonthSlot {
+    flex: 0 0 var(--calendar-year-slot-width);
+    min-width: 0;
+}
+
+.yearMonthSlotHiddenEdge {
+    pointer-events: none;
+}
+
+.yearMonthSlotPlaceholder {
+    height: 100%;
+}
+
+.yearMonthCardInert {
+    pointer-events: none;
+    user-select: none;
+}
+
+.yearShiftOverlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.yearMonthCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    border: 0.75px solid rgba(15, 23, 42, 0.12);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    padding: 6px 6px 7px;
+}
+
+.yearMonthCardGhost {
+    position: absolute;
+    margin: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.yearMonthHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-height: 28px;
+}
+
+.yearMonthYear {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.5);
+}
+
+.yearMonthYearSecondary {
+    margin-left: auto;
+    text-align: right;
+}
+
+.yearMonthTitle {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: clamp(0.86rem, 1vw, 1.12rem);
+    line-height: 1.05;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.yearMonthTitleSecondary {
+    margin-left: auto;
+    color: rgba(15, 23, 42, 0.72);
+    font-size: 0.82em;
+    text-align: right;
+}
+
+.yearMonthTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.yearMonthWeekdayCell {
+    padding: 0 0 4px;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: rgba(15, 23, 42, 0.5);
+}
+
+.yearWeekRow {
+    height: var(--calendar-year-day-cell-height, 42px);
+}
+
+.yearDayCell {
+    position: relative;
+    height: var(--calendar-year-day-cell-height, 42px);
+    min-height: var(--calendar-year-day-cell-height, 42px);
+    padding: 1px 1px 2px;
+    border: 0.35px solid rgba(15, 23, 42, 0.14);
+    background: rgba(255, 255, 255, 0.92);
+    vertical-align: top;
+    overflow: visible;
+}
+
+.yearDayCellOutsideMonth {
+    background: rgba(241, 245, 249, 0.72);
+}
+
+.yearDayNumberWrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 3px;
+    min-height: 11px;
+    padding-left: 8px;
+}
+
+.yearDayPrimary {
+    font-size: 0.64rem;
+    line-height: 1;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.yearDaySecondary {
+    font-size: 0.48rem;
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.6);
+}
+
+.yearDayMuted {
+    color: rgba(15, 23, 42, 0.38);
+}
+
+.yearDayEventStack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--calendar-year-event-gap, 1px);
+    min-width: 0;
+    overflow: hidden;
+}
+
+.yearDayMore {
+    margin-top: var(--calendar-year-event-gap, 1px);
+    font-size: calc(0.48rem * var(--calendar-year-event-font-scale, 1));
+    line-height: 1;
+    font-weight: 700;
+    text-align: left;
+    color: rgba(15, 23, 42, 0.58);
+}
+
+.yearDayCell .monthName {
+    font-size: 0.64rem;
+    line-height: 0.9;
+    padding: 2px 0 1px;
+}
+
+.yearDayCell .nepaliMonthName {
+    top: 14px;
+    font-size: 0.58rem;
+    line-height: 0.9;
+    padding: 2px 0 1px;
+}
+
+.yearDayCell .yearNumber,
+.yearDayCell .nepaliYearNumber {
+    top: 1px;
+    left: 1px;
+    font-size: 0.5rem;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.yearDayCell.firstDayOfMonth {
+    background: linear-gradient(to right, rgb(209, 223, 252), white);
+    border-top: 1px solid blue;
+    border-left: 1px solid blue;
+}
+
+.yearDayCell.firstWeekOfMonth {
+    border-top: 1px solid blue;
+}
+
+.yearDayCell.firstDayOfYear {
+    background: linear-gradient(to right, rgb(49, 138, 255), white) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgb(209, 223, 252), white);
+}
+
+.yearDayCell.firstDayOfNepaliMonth {
+    background: linear-gradient(to right, rgb(252, 209, 209), white);
+    border-top: 1px solid rgb(255, 150, 150);
+    border-left: 1px solid rgb(255, 150, 150);
+}
+
+.yearDayCell.firstWeekOfNepaliMonth {
+    border-top: 1px solid rgb(255, 150, 150);
+}
+
+.yearDayCell.firstDayOfNepaliYear {
+    background: linear-gradient(to right, red, white) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgb(252, 209, 209), white);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK THEME OVERRIDES
+   Scoped via the global .fd-dark class applied to the Calendar root.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Scroll container / base backgrounds ── */
+:global(.fd-dark) .calendarScrollContainer {
+    background-color: var(--fd-canvas, #08090f);
+}
+
+/* ── Day View ── */
+:global(.fd-dark) .dayViewShell {
+    background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.10), transparent 30%),
+        linear-gradient(180deg, var(--fd-panel, #111827), var(--fd-canvas, #08090f));
+}
+
+:global(.fd-dark) .dayViewRowSection {
+    border-bottom-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .dayViewTopRow {
+    border-bottom-color: var(--fd-line, #1e2435);
+    background: rgba(17, 24, 39, 0.96);
+}
+
+:global(.fd-dark) .dayViewTimeHeaderSpacer {
+    border-right-color: var(--fd-line, #1e2435);
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(15, 19, 32, 0.94));
+}
+
+:global(.fd-dark) .dayViewTimeHeaderLabel {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .dayViewHeaderRow {
+    border-bottom-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .dayViewHeaderCell {
+    border-left-color: var(--fd-line, #1e2435);
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.96), rgba(15, 19, 32, 0.92));
+}
+
+:global(.fd-dark) .dayViewHeaderWeekday {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .dayViewHeaderGregorian {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .dayViewHeaderBs {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .dayViewAllDayTrack {
+    border-bottom-color: var(--fd-line, #1e2435);
+    background: rgba(15, 19, 32, 0.86);
+}
+
+:global(.fd-dark) .dayViewAllDayCellWrap {
+    border-left-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .dayViewAllDayOverflow {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .dayViewTimeGutter {
+    border-right-color: var(--fd-line, #1e2435);
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(15, 19, 32, 0.94));
+}
+
+:global(.fd-dark) .dayViewTimeLabel {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .dayViewHourLines {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.07) 0,
+        rgba(255, 255, 255, 0.07) 1px,
+        transparent 1px,
+        transparent 100%
+    );
+}
+
+:global(.fd-dark) .dayViewSubhourLines {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.03) 0,
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 100%
+    );
+}
+
+:global(.fd-dark) .dayViewTimedColumn {
+    border-left-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .dayViewDraftBlock {
+    border-color: rgba(139, 92, 246, 0.55);
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.22), rgba(99, 102, 241, 0.16));
+    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.18);
+}
+
+:global(.fd-dark) .dayViewTimedPreview,
+:global(.fd-dark) .dayViewAllDayPreviewSegment {
+    border-color: rgba(139, 92, 246, 0.48);
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.24), rgba(99, 102, 241, 0.18));
+    box-shadow:
+        inset 0 0 0 1px rgba(139, 92, 246, 0.15),
+        0 10px 28px -24px rgba(139, 92, 246, 0.42);
+}
+
+:global(.fd-dark) .dayViewDropPreviewTitle {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .dayViewDropPreviewTime {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .dragRecurrenceIndicator {
+    background: rgba(250, 251, 255, 0.92);
+    border-color: rgba(250, 251, 255, 0.2);
+    color: #0f172a;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+:global(.fd-dark) .dragRecurrenceIndicatorKey {
+    background: rgba(15, 23, 42, 0.12);
+    border-color: rgba(15, 23, 42, 0.18);
+    color: #475569;
+}
+
+/* ── Week View (default table) ── */
+:global(.fd-dark) .headerCell {
+    background-color: var(--fd-panel, #111827);
+    color: var(--fd-ink, #fafbff);
+    border-right-color: var(--fd-line, #1e2435);
+    border-bottom-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .dayCell {
+    border-color: var(--fd-line, #1e2435);
+    background-color: var(--fd-canvas, #08090f);
+}
+
+:global(.fd-dark) .dragOverCell {
+    background-color: rgba(139, 92, 246, 0.15);
+}
+
+:global(.fd-dark) .dayNumber {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .firstDayOfMonth {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.25), var(--fd-canvas, #08090f));
+    border-top-color: rgba(59, 130, 246, 0.6);
+    border-left-color: rgba(59, 130, 246, 0.6);
+}
+
+:global(.fd-dark) .firstDayOfMonth + td,
+:global(.fd-dark) .firstDayOfMonth + td + td,
+:global(.fd-dark) .firstDayOfMonth + td + td + td,
+:global(.fd-dark) .firstDayOfMonth + td + td + td + td,
+:global(.fd-dark) .firstDayOfMonth + td + td + td + td + td,
+:global(.fd-dark) .firstDayOfMonth + td + td + td + td + td + td {
+    border-top-color: rgba(59, 130, 246, 0.6);
+}
+
+:global(.fd-dark) .firstWeekOfMonth {
+    border-top-color: rgba(59, 130, 246, 0.6);
+}
+
+:global(.fd-dark) .firstDayOfYear {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.5), var(--fd-canvas, #08090f)) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgba(59, 130, 246, 0.25), var(--fd-canvas, #08090f));
+}
+
+:global(.fd-dark) .firstDayOfNepaliMonth {
+    background: linear-gradient(to right, rgba(239, 68, 68, 0.22), var(--fd-canvas, #08090f));
+    border-top-color: rgba(239, 68, 68, 0.5);
+    border-left-color: rgba(239, 68, 68, 0.5);
+}
+
+:global(.fd-dark) .firstWeekOfNepaliMonth {
+    border-top-color: rgba(239, 68, 68, 0.5);
+}
+
+:global(.fd-dark) .firstDayOfNepaliYear {
+    background: linear-gradient(to right, rgba(239, 68, 68, 0.45), var(--fd-canvas, #08090f)) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgba(239, 68, 68, 0.22), var(--fd-canvas, #08090f));
+}
+
+:global(.fd-dark) .yearNumber,
+:global(.fd-dark) .nepaliYearNumber {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .displayBothMonths {
+    background-color: var(--fd-panel, #111827);
+    border-color: var(--fd-line, #1e2435);
+    color: var(--fd-ink, #fafbff);
+}
+
+/* ── Sticky month box (week view) ── */
+:global(.fd-dark) .stickyMonthFrame {
+    border-color: var(--fd-line, #1e2435);
+    background-color: rgba(17, 24, 39, 0.94);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+:global(.fd-dark) .miniStickyHeaderTitle {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .miniStickyHeaderSubtitle {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+/* ── Event chip dark overrides ── */
+:global(.fd-dark) .event {
+    --calendar-chip-border: rgba(52, 211, 153, 0.35);
+    --calendar-chip-bg: linear-gradient(135deg, rgba(6, 78, 59, 0.5), rgba(4, 120, 87, 0.35));
+    --calendar-chip-title: #6ee7b7;
+    --calendar-chip-meta: rgba(110, 231, 183, 0.82);
+    --calendar-chip-audience-border: rgba(52, 211, 153, 0.4);
+    --calendar-chip-audience-text: #6ee7b7;
+    --calendar-chip-avatar-border: #34d399;
+    --calendar-chip-avatar-bg: rgba(17, 24, 39, 0.82);
+    --calendar-chip-avatar-text: #6ee7b7;
+    --calendar-chip-count-bg: rgba(52, 211, 153, 0.15);
+    --calendar-chip-count-text: #6ee7b7;
+    --calendar-span-border: rgba(52, 211, 153, 0.4);
+    --calendar-span-bg: linear-gradient(135deg, rgba(6, 78, 59, 0.45), rgba(4, 120, 87, 0.35));
+}
+
+:global(.fd-dark) .chore {
+    --calendar-chip-border: rgba(96, 165, 250, 0.35);
+    --calendar-chip-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.5), rgba(29, 78, 216, 0.35));
+    --calendar-chip-title: #93c5fd;
+    --calendar-chip-meta: rgba(147, 197, 253, 0.85);
+    --calendar-chip-audience-border: rgba(96, 165, 250, 0.4);
+    --calendar-chip-audience-text: #93c5fd;
+    --calendar-chip-avatar-border: #60a5fa;
+    --calendar-chip-avatar-bg: rgba(17, 24, 39, 0.86);
+    --calendar-chip-avatar-text: #93c5fd;
+    --calendar-chip-count-bg: rgba(96, 165, 250, 0.15);
+    --calendar-chip-count-text: #93c5fd;
+    --calendar-span-border: rgba(96, 165, 250, 0.4);
+    --calendar-span-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.45), rgba(29, 78, 216, 0.35));
+}
+
+:global(.fd-dark) .eventPlain {
+    --calendar-chip-title: var(--fd-ink, #fafbff);
+    --calendar-chip-meta: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .chorePlain {
+    --calendar-chip-title: #93c5fd;
+    --calendar-chip-meta: rgba(147, 197, 253, 0.78);
+}
+
+:global(.fd-dark) .calendarItem {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+:global(.fd-dark) .eventAudienceAll {
+    background: rgba(17, 24, 39, 0.72);
+}
+
+:global(.fd-dark) .eventAudienceAvatar {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+:global(.fd-dark) .eventMemberDot {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Day event cards (day view timed events) ── */
+:global(.fd-dark) .dayEventCard {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 12px 24px -18px rgba(0, 0, 0, 0.3);
+}
+
+:global(.fd-dark) .dayEventAvatar {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+:global(.fd-dark) .dayEventAvatarFallback {
+    background: rgba(17, 24, 39, 0.92);
+}
+
+/* ── Mini calendar (miniInfinite variant) ── */
+:global(.fd-dark) .miniCalendarShell {
+    border-color: var(--fd-line, #1e2435);
+    background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 34%),
+        linear-gradient(180deg, var(--fd-panel, #111827), var(--fd-canvas, #08090f));
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:global(.fd-dark) .miniStickyHeader {
+    border-bottom-color: var(--fd-line, #1e2435);
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.94), rgba(15, 19, 32, 0.9));
+}
+
+:global(.fd-dark) .miniWeekdayHeader {
+    background: linear-gradient(180deg, rgba(15, 19, 32, 0.92), rgba(15, 19, 32, 0.82));
+    border-bottom-color: var(--fd-line, #1e2435);
+}
+
+:global(.fd-dark) .miniWeekdayCell {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .miniDayCell {
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.7);
+}
+
+:global(.fd-dark) .miniDayPrimary {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .miniDaySecondary {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .miniDayMore {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+/* ── Year View ── */
+:global(.fd-dark) .yearMonthCard {
+    border-color: var(--fd-line, #1e2435);
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(15, 19, 32, 0.96));
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:global(.fd-dark) .yearMonthYear {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .yearMonthTitle {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .yearMonthTitleSecondary {
+    color: var(--fd-ink-muted, #b7bcd0);
+}
+
+:global(.fd-dark) .yearMonthWeekdayCell {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .yearDayCell {
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.7);
+}
+
+:global(.fd-dark) .yearDayCellOutsideMonth {
+    background: rgba(8, 9, 15, 0.6);
+}
+
+:global(.fd-dark) .yearDayPrimary {
+    color: var(--fd-ink, #fafbff);
+}
+
+:global(.fd-dark) .yearDaySecondary {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .yearDayMuted {
+    color: rgba(255, 255, 255, 0.22);
+}
+
+:global(.fd-dark) .yearDayMore {
+    color: var(--fd-ink-faint, #6b7394);
+}
+
+:global(.fd-dark) .yearDayCell.firstDayOfMonth {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.25), rgba(17, 24, 39, 0.7));
+    border-top-color: rgba(59, 130, 246, 0.5);
+    border-left-color: rgba(59, 130, 246, 0.5);
+}
+
+:global(.fd-dark) .yearDayCell.firstWeekOfMonth {
+    border-top-color: rgba(59, 130, 246, 0.5);
+}
+
+:global(.fd-dark) .yearDayCell.firstDayOfYear {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.5), rgba(17, 24, 39, 0.7)) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgba(59, 130, 246, 0.25), rgba(17, 24, 39, 0.7));
+}
+
+:global(.fd-dark) .yearDayCell.firstDayOfNepaliMonth {
+    background: linear-gradient(to right, rgba(239, 68, 68, 0.22), rgba(17, 24, 39, 0.7));
+    border-top-color: rgba(239, 68, 68, 0.45);
+    border-left-color: rgba(239, 68, 68, 0.45);
+}
+
+:global(.fd-dark) .yearDayCell.firstWeekOfNepaliMonth {
+    border-top-color: rgba(239, 68, 68, 0.45);
+}
+
+:global(.fd-dark) .yearDayCell.firstDayOfNepaliYear {
+    background: linear-gradient(to right, rgba(239, 68, 68, 0.45), rgba(17, 24, 39, 0.7)) 0% 0% / 80% 23% no-repeat,
+        linear-gradient(to right, rgba(239, 68, 68, 0.22), rgba(17, 24, 39, 0.7));
+}
+
+:global(.fd-dark) .yearCalendarGrid .eventSpan {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Agenda view search/filter styling ── */
+:global(.fd-dark) .highlighted {
+    background-color: rgba(250, 204, 21, 0.25);
+}

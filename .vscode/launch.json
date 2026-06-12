@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: debug server-side",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "NEXT_DISABLE_TURBOPACK=1 npx next dev -p 3001"
+    },
+    {
+      "name": "Next.js: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9222,
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}",
+      "skipFiles": [
+        "<node_internals>/**", // Skips all Node.js internals
+        "node_modules/**/*.js", // Skips any JavaScript files in node_modules
+        "node_modules/**/*.tsx", // Skips any JavaScript files in node_modules
+        "node_modules/**/**/*.tsx", // Skips any JavaScript files in node_modules
+        "node_modules/**",
+        "**/react/**/*.js",     // Skips React library files
+        "**/react-dom/**/*.js", // Skips React-DOM files
+        "**/next/**/*.js",       // Skips Next.js core files
+        "**/react*/**/*.js",       // Skips Next.js core files
+        "**/next*/**/*.js"       // Skips Next.js core files
+      ],
+      "sourceMapPathOverrides": {
+        "webpack:///./components/*": "${webRoot}/components/*",
+        "webpack:///*": "${webRoot}/*"
+      }
+    },
+    {
+      "name": "Next.js: debug full stack",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "webpack:///./components/*": "${webRoot}/components/*",
+        "webpack:///*": "${webRoot}/*"
+      },
+      "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s"
+      }
+    }
+  ]
+}
