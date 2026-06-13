@@ -378,3 +378,5 @@ Issues and PRs are welcome. This is a personal project — iteration pace follow
 Licensed under the [Apache License 2.0](./LICENSE).
 
 This project is a fork of [fivestones/family-organizer](https://github.com/fivestones/family-organizer), originally created by **David Thomas** and released under the MIT License. The full MIT license text is preserved in [LICENSE](./LICENSE).
+
+[linux.do](linux.do)
